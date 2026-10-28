@@ -1,0 +1,2083 @@
+/* ==========================================================================
+   LEONARDO SALGUEIRO - CONSULTORIA EMPLAVI V2
+   Design Pattern Oficial Emplavi (Inspirado em emplavi.com.br/blog/)
+   Cores: Azul Marinho Corporativo (#1E2F47), Dourado (#C5A059) e Branco Puro
+   Fonte Oficial: Nunito Sans
+   ========================================================================== */
+
+:root {
+  /* Emplavi Official Brand Palette */
+  --emplavi-navy: #1E2F47;
+  --emplavi-navy-dark: #142236;
+  --emplavi-navy-light: #2A405F;
+  --emplavi-gold: #C5A059;
+  --emplavi-gold-dark: #A9843F;
+  --emplavi-gold-light: #DFBA76;
+
+  /* Emerald & Warm Paper Palette (Workshop & Alto Padrão) */
+  --emerald: #1B4D3E;
+  --emerald-dark: #12372C;
+  --emerald-light: #2A6855;
+  --emerald-soft: rgba(27, 77, 62, 0.08);
+  --emerald-glow: rgba(27, 77, 62, 0.22);
+  --paper-bg: #FAF8F5;
+  --paper-card: #FFFFFF;
+  --paper-border: #E8E3DA;
+
+  /* Surfaces & Backgrounds */
+  --bg-body: #F7F9FB;
+  --bg-white: #FFFFFF;
+  --bg-soft-gray: #F0F4F8;
+  --bg-banner: #1E2F47;
+
+  /* Text & Accents */
+  --text-dark: #1E2F47;
+  --text-body: #4A5568;
+  --text-muted: #718096;
+  --text-light: #A0AEC0;
+  
+  --border-light: #E2E8F0;
+  --border-card: #E8EEF5;
+
+  --whatsapp: #25D366;
+  --whatsapp-hover: #1EBE5D;
+
+  /* Typography */
+  --font-main: 'Nunito Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Geometry & Shadows */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+  
+  --shadow-sm: 0 2px 8px rgba(30, 47, 71, 0.05);
+  --shadow-md: 0 4px 20px rgba(30, 47, 71, 0.08);
+  --shadow-lg: 0 12px 35px rgba(30, 47, 71, 0.12);
+  --transition-smooth: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+
+  --header-height: 76px;
+  --mobile-dock-height: 64px;
+}
+
+/* Reset & Box Sizing */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  background-color: var(--bg-body);
+}
+
+body.emplavi-theme {
+  font-family: var(--font-main);
+  background-color: var(--bg-body);
+  color: var(--text-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  padding-bottom: calc(var(--mobile-dock-height) + env(safe-area-inset-bottom, 0px) + 20px);
+}
+
+@media (min-width: 992px) {
+  body.emplavi-theme {
+    padding-bottom: 0;
+  }
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Typography Helpers */
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-main);
+  color: var(--emplavi-navy);
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+p {
+  color: var(--text-body);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Emplavi Signature Divider */
+.emplavi-divider {
+  width: 54px;
+  height: 3px;
+  background-color: var(--emplavi-gold);
+  border-radius: 2px;
+  margin: 12px 0 18px;
+}
+
+.emplavi-divider.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.card-mini-divider {
+  width: 38px;
+  height: 2px;
+  background-color: var(--emplavi-gold);
+  border-radius: 2px;
+  margin: 8px 0 12px;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-main);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 12px 22px;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn-emplavi-primary {
+  background-color: var(--emplavi-navy);
+  color: #FFFFFF;
+}
+
+.btn-emplavi-primary:hover {
+  background-color: var(--emplavi-navy-dark);
+  color: #FFFFFF;
+}
+
+.btn-emplavi-secondary {
+  background-color: var(--bg-white);
+  border-color: var(--emplavi-navy);
+  color: var(--emplavi-navy);
+}
+
+.btn-emplavi-secondary:hover {
+  background-color: var(--emplavi-navy);
+  color: #FFFFFF;
+}
+
+.btn-outline-navy {
+  background-color: transparent;
+  border-color: var(--emplavi-navy);
+  color: var(--emplavi-navy);
+}
+
+.btn-outline-navy:hover {
+  background-color: var(--emplavi-navy);
+  color: #FFFFFF;
+}
+
+.btn-wa-green {
+  background-color: var(--whatsapp);
+  color: #FFFFFF;
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.28);
+}
+
+.btn-wa-green:hover {
+  background-color: var(--whatsapp-hover);
+  color: #FFFFFF;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+/* ==========================================================================
+   HEADER & NAVIGATION (PADRÃO EMPLAVI CORPORATIVO)
+   ========================================================================== */
+.site-header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-color: var(--bg-white);
+  border-bottom: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-height);
+  padding: 0 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Logo & Brand */
+.brand-logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-emplavi-logo {
+  height: 42px;
+  width: auto;
+  max-width: 120px;
+  object-fit: contain;
+  display: block;
+}
+
+.brand-emplavi-badge {
+  font-family: var(--font-main);
+  font-weight: 900;
+  font-size: 21px;
+  letter-spacing: 0.14em;
+  color: var(--emplavi-navy);
+}
+
+.brand-divider-v {
+  width: 1.5px;
+  height: 24px;
+  background-color: var(--border-light);
+}
+
+.brand-agent-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-agent-name {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: var(--emplavi-navy);
+  line-height: 1.1;
+}
+
+.brand-agent-role {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--emplavi-gold-dark);
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #10B981;
+  display: inline-block;
+}
+
+/* Desktop Navigation */
+.desktop-nav {
+  display: none;
+  align-items: center;
+  gap: 28px;
+}
+
+@media (min-width: 992px) {
+  .desktop-nav {
+    display: flex;
+  }
+}
+
+.nav-item {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--emplavi-navy);
+  transition: color 0.2s;
+  padding: 6px 0;
+  position: relative;
+}
+
+.nav-item:hover {
+  color: var(--emplavi-gold);
+}
+
+.nav-item::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--emplavi-gold);
+  transition: width 0.2s ease;
+}
+
+.nav-item:hover::after {
+  width: 100%;
+}
+
+/* Header Actions */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-emplavi-action {
+  background-color: var(--emplavi-navy);
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 9px 18px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-emplavi-action:hover {
+  background-color: var(--emplavi-navy-dark);
+}
+
+.icon-wa {
+  width: 16px;
+  height: 16px;
+  fill: #25D366;
+}
+
+@media (max-width: 600px) {
+  .btn-emplavi-action span {
+    display: none;
+  }
+  .btn-emplavi-action {
+    padding: 10px;
+    border-radius: 50%;
+  }
+}
+
+/* Mobile Menu Toggle */
+.mobile-menu-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 38px;
+  height: 38px;
+  background: var(--bg-soft-gray);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  padding: 8px;
+}
+
+@media (min-width: 992px) {
+  .mobile-menu-btn {
+    display: none;
+  }
+}
+
+.mobile-menu-btn .bar {
+  height: 2px;
+  width: 100%;
+  background-color: var(--emplavi-navy);
+  border-radius: 2px;
+  transition: 0.2s;
+}
+
+/* Mobile Drawer Menu */
+.mobile-drawer {
+  position: fixed;
+  top: var(--header-height);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 20px;
+  transform: translateY(-120%);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.3s ease, opacity 0.2s ease;
+}
+
+.mobile-drawer.open {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.drawer-user {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--border-light);
+  margin-bottom: 18px;
+}
+
+.drawer-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid var(--emplavi-gold);
+  background-size: cover;
+  background-position: center top;
+}
+
+.drawer-user strong {
+  display: block;
+  font-size: 15px;
+  color: var(--emplavi-navy);
+}
+
+.drawer-user p {
+  font-size: 12px;
+  color: var(--emplavi-gold-dark);
+}
+
+.drawer-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.drawer-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--emplavi-navy);
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  transition: background 0.2s;
+}
+
+.drawer-link svg {
+  width: 20px;
+  height: 20px;
+  color: var(--emplavi-gold);
+}
+
+.drawer-link:active, .drawer-link:hover {
+  background-color: var(--bg-soft-gray);
+  color: var(--emplavi-gold-dark);
+}
+
+.drawer-footer {
+  margin-top: auto;
+  padding-top: 16px;
+}
+
+/* ==========================================================================
+   BREADCRUMBS BANNER (IDÊNTICO AO BLOG EMPLAVI)
+   ========================================================================== */
+.emplavi-top-banner {
+  background-color: var(--bg-banner);
+  color: #FFFFFF;
+  padding: 36px 0 40px;
+  border-bottom: 3px solid var(--emplavi-gold);
+}
+
+.emplavi-breadcrumbs {
+  font-size: 12.5px;
+  color: #CBD5E1;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.emplavi-breadcrumbs a {
+  color: #FFFFFF;
+  text-decoration: underline;
+}
+
+.breadcrumb-current {
+  color: var(--emplavi-gold-light);
+  font-weight: 700;
+}
+
+.banner-title {
+  font-size: clamp(24px, 4.5vw, 38px);
+  color: #FFFFFF;
+  font-weight: 900;
+  line-height: 1.15;
+  margin-bottom: 8px;
+}
+
+.banner-subtitle {
+  font-size: 15px;
+  color: #E2E8F0;
+  max-width: 680px;
+}
+
+/* ==========================================================================
+   HERO / SPOTLIGHT SECTION
+   ========================================================================== */
+.section-hero {
+  padding: 40px 0;
+  background-color: var(--bg-white);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 36px;
+  align-items: center;
+}
+
+@media (min-width: 880px) {
+  .hero-grid {
+    grid-template-columns: 1.25fr 0.75fr;
+  }
+}
+
+.section-badge-emplavi {
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--emplavi-gold-dark);
+  margin-bottom: 6px;
+}
+
+.hero-heading {
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.hero-lead {
+  font-size: 15.5px;
+  line-height: 1.65;
+  color: var(--text-body);
+  margin-bottom: 24px;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.hero-actions svg {
+  width: 16px;
+  height: 16px;
+}
+
+.hero-stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-light);
+}
+
+@media (max-width: 520px) {
+  .hero-stats-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-number {
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--emplavi-navy);
+  line-height: 1.1;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* Broker Card Presentation */
+.broker-card-emplavi {
+  background-color: var(--bg-soft-gray);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+}
+
+.broker-photo-wrap {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 16px;
+}
+
+.broker-photo {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  border: 3px solid var(--emplavi-gold);
+  box-shadow: var(--shadow-md);
+}
+
+.badge-online {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #10B981;
+  color: #FFFFFF;
+  font-size: 9.5px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+
+.broker-card-name {
+  font-size: 19px;
+  margin-bottom: 4px;
+}
+
+.broker-card-tag {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--emplavi-gold-dark);
+  display: block;
+  margin-bottom: 10px;
+}
+
+.broker-card-desc {
+  font-size: 13px;
+  color: var(--text-body);
+  margin-bottom: 18px;
+}
+
+.btn-wa-green svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+/* ==========================================================================
+   MOBILE HORIZONTAL PILLS TRACK
+   ========================================================================== */
+.section-pills {
+  padding: 16px 0 10px;
+  background-color: var(--bg-white);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.pills-scroll-track {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.pills-scroll-track::-webkit-scrollbar {
+  display: none;
+}
+
+.pill-btn {
+  background-color: var(--bg-soft-gray);
+  border: 1px solid var(--border-light);
+  color: var(--emplavi-navy);
+  font-family: var(--font-main);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 9px 18px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: var(--transition-smooth);
+}
+
+.pill-btn:hover, .pill-btn.active {
+  background-color: var(--emplavi-navy);
+  color: #FFFFFF;
+  border-color: var(--emplavi-navy);
+}
+
+/* ==========================================================================
+   SECTION COMMON HEADINGS (PADRÃO EMPLAVI)
+   ========================================================================== */
+.section-heading-block {
+  margin-bottom: 30px;
+}
+
+.section-heading-block.text-center {
+  text-align: center;
+}
+
+.sub-label {
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--emplavi-gold-dark);
+  display: block;
+  margin-bottom: 4px;
+}
+
+.main-title {
+  font-size: clamp(22px, 3.8vw, 32px);
+  font-weight: 800;
+}
+
+.section-desc {
+  font-size: 14.5px;
+  color: var(--text-muted);
+  max-width: 600px;
+}
+
+.section-heading-block.text-center .section-desc {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ==========================================================================
+   EMPREENDIMENTOS SECTION & CARDS
+   ========================================================================== */
+.section-portfolio {
+  padding: 44px 0 60px;
+}
+
+.filter-box-emplavi {
+  background-color: var(--bg-white);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  margin-bottom: 32px;
+  box-shadow: var(--shadow-sm);
+}
+
+.filter-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+@media (max-width: 768px) {
+  .filter-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+
+.filter-field label {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--emplavi-navy);
+  display: block;
+  margin-bottom: 4px;
+}
+
+.select-wrap {
+  position: relative;
+}
+
+.select-wrap select {
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: var(--bg-soft-gray);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  color: var(--emplavi-navy);
+  font-family: var(--font-main);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 11px 36px 11px 12px;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.select-wrap select:focus {
+  outline: none;
+  border-color: var(--emplavi-navy);
+  background-color: #FFFFFF;
+}
+
+.select-wrap::after {
+  content: '';
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  border-right: 2px solid var(--emplavi-navy);
+  border-bottom: 2px solid var(--emplavi-navy);
+  transform: translateY(-60%) rotate(45deg);
+  pointer-events: none;
+}
+
+.filter-reset-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-light);
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.btn-clear-emplavi {
+  background: none;
+  border: none;
+  color: var(--emplavi-gold-dark);
+  font-family: var(--font-main);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* Property Cards Grid */
+.properties-grid-emplavi {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 26px;
+}
+
+@media (max-width: 480px) {
+  .properties-grid-emplavi {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+/* Emplavi Property Card */
+.emplavi-card {
+  background-color: var(--bg-white);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-smooth);
+}
+
+.emplavi-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-light);
+}
+
+.emplavi-card-media {
+  position: relative;
+  height: 220px;
+  overflow: hidden;
+  background-color: var(--bg-soft-gray);
+}
+
+.emplavi-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.emplavi-card:hover .emplavi-card-media img {
+  transform: scale(1.04);
+}
+
+.card-tag-status {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-size: 10.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  color: #FFFFFF;
+}
+
+.card-tag-status.ready {
+  background-color: #10B981;
+}
+
+.card-tag-status.building {
+  background-color: var(--emplavi-gold-dark);
+}
+
+.card-tag-region {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  background-color: rgba(30, 47, 71, 0.92);
+  color: #FFFFFF;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+}
+
+.emplavi-card-body {
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.card-emplavi-label {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--emplavi-gold-dark);
+  text-transform: uppercase;
+}
+
+.card-prop-title {
+  font-size: 21px;
+  font-weight: 800;
+  margin: 3px 0;
+}
+
+.card-prop-subtitle {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+
+.card-specs-emplavi {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.spec-tag {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background-color: var(--bg-soft-gray);
+  border-radius: 4px;
+  padding: 5px 9px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--emplavi-navy);
+}
+
+.spec-tag svg {
+  width: 14px;
+  height: 14px;
+  color: var(--emplavi-gold-dark);
+}
+
+.card-prop-text {
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--text-body);
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+
+.card-footer-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.card-footer-actions .btn {
+  padding: 10px;
+  font-size: 13px;
+}
+
+.empty-state-emplavi {
+  text-align: center;
+  padding: 44px 20px;
+  background: var(--bg-white);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+}
+
+.empty-state-emplavi h3 {
+  font-size: 19px;
+  margin-bottom: 6px;
+}
+
+.empty-state-emplavi p {
+  font-size: 14px;
+  margin-bottom: 18px;
+}
+
+/* ==========================================================================
+   WORKSHOP & MATERIAIS EXCLUSIVOS (PALETA ESMERALDA, PAPEL & ALTO PADRÃO)
+   ========================================================================== */
+.section-workshop {
+  padding: 64px 0 80px;
+  background-color: var(--paper-bg);
+  border-top: 1px solid var(--paper-border);
+  border-bottom: 1px solid var(--paper-border);
+}
+
+.workshop-heading-block {
+  margin-bottom: 46px;
+}
+
+.workshop-badge {
+  background-color: var(--emerald-soft);
+  color: var(--emerald);
+  border: 1px solid rgba(27, 77, 62, 0.22);
+  padding: 5px 14px;
+  border-radius: var(--radius-full);
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.workshop-desc {
+  max-width: 660px;
+  margin: 0 auto;
+  font-size: 15px;
+  color: var(--text-body);
+}
+
+.workshop-area-block {
+  margin-bottom: 52px;
+}
+
+.workshop-area-block:last-child {
+  margin-bottom: 0;
+}
+
+.workshop-subheading-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.subheading-icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background-color: var(--emplavi-navy);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.subheading-icon-wrap.icon-emerald {
+  background-color: var(--emerald);
+}
+
+.subheading-icon-wrap svg {
+  width: 22px;
+  height: 22px;
+}
+
+.workshop-area-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--emplavi-navy);
+  margin-bottom: 2px;
+  line-height: 1.25;
+}
+
+.workshop-area-subtitle {
+  font-size: 13.5px;
+  color: var(--text-muted);
+}
+
+/* Videos Grid & Cards */
+.workshop-videos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+  gap: 24px;
+}
+
+.workshop-video-card {
+  background-color: var(--paper-card);
+  border: 1px solid var(--paper-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: 0 4px 18px rgba(30, 47, 71, 0.05);
+  display: flex;
+  flex-direction: column;
+  transition: var(--transition-smooth);
+}
+
+.workshop-video-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 28px rgba(30, 47, 71, 0.1);
+  border-color: #D6CEBE;
+}
+
+.video-media-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background-color: #0A1118;
+  overflow: hidden;
+}
+
+.workshop-video-player {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  outline: none;
+}
+
+.video-info-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.video-badge-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.video-tag {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.video-tag.tag-noroeste {
+  background-color: rgba(197, 160, 89, 0.16);
+  color: #8C6A24;
+}
+
+.video-tag.tag-sudoeste {
+  background-color: var(--emerald-soft);
+  color: var(--emerald);
+}
+
+.video-tag.tag-guara {
+  background-color: rgba(30, 47, 71, 0.08);
+  color: var(--emplavi-navy);
+}
+
+.video-pill-info {
+  font-size: 11.5px;
+  color: var(--text-light);
+  font-weight: 600;
+}
+
+.video-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--emplavi-navy);
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.video-caption {
+  font-size: 13px;
+  color: var(--text-body);
+  line-height: 1.55;
+  margin-top: auto;
+}
+
+/* Books Grid & Cards */
+.workshop-books-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+  gap: 24px;
+}
+
+.workshop-book-card {
+  background-color: var(--paper-card);
+  border: 1px solid var(--paper-border);
+  border-radius: var(--radius-md);
+  padding: 26px 22px 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 18px rgba(30, 47, 71, 0.05);
+  transition: var(--transition-smooth);
+}
+
+.workshop-book-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 28px rgba(30, 47, 71, 0.1);
+  border-color: #D6CEBE;
+}
+
+.workshop-book-card.card-featured-emerald {
+  border-color: var(--emerald);
+  box-shadow: 0 8px 30px var(--emerald-glow);
+  background: linear-gradient(180deg, #FFFFFF 0%, #F5FBF8 100%);
+}
+
+.book-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.book-card-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background-color: rgba(30, 47, 71, 0.06);
+  color: var(--emplavi-navy);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.book-card-icon-box.icon-emerald {
+  background-color: var(--emerald-soft);
+  color: var(--emerald);
+}
+
+.book-card-icon-box svg {
+  width: 22px;
+  height: 22px;
+}
+
+.book-edition-badge {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background-color: var(--bg-soft-gray);
+  color: var(--text-muted);
+}
+
+.book-edition-badge.badge-emerald-rich {
+  background-color: var(--emerald);
+  color: #FFFFFF;
+}
+
+.book-card-main {
+  flex-grow: 1;
+}
+
+.book-main-title {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--emplavi-navy);
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+
+.book-main-subtitle {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  margin-bottom: 18px;
+}
+
+.book-specs-container {
+  background-color: var(--bg-body);
+  border-radius: var(--radius-sm);
+  padding: 14px 15px;
+  margin-bottom: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid var(--border-light);
+}
+
+.book-spec-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  gap: 8px;
+}
+
+.book-spec-row .spec-label {
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.book-spec-row .spec-value {
+  color: var(--emplavi-navy);
+  font-weight: 700;
+  text-align: right;
+}
+
+.btn-book-action {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: var(--emplavi-navy);
+  color: #FFFFFF;
+  font-size: 13.5px;
+  font-weight: 700;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  transition: var(--transition-smooth);
+  text-decoration: none;
+}
+
+.btn-book-action:hover {
+  background-color: var(--emplavi-navy-dark);
+  color: #FFFFFF;
+}
+
+.btn-book-emerald {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: var(--emerald);
+  color: #FFFFFF;
+  font-size: 13.5px;
+  font-weight: 700;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  transition: var(--transition-smooth);
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(27, 77, 62, 0.25);
+}
+
+.btn-book-emerald:hover {
+  background-color: var(--emerald-dark);
+  color: #FFFFFF;
+}
+
+/* ==========================================================================
+   WHY EMPLAVI (INSTITUCIONAL)
+   ========================================================================== */
+.section-why-emplavi {
+  padding: 50px 0 60px;
+  background-color: var(--bg-white);
+}
+
+.why-emplavi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.why-item-card {
+  background-color: var(--bg-soft-gray);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 26px 20px;
+  transition: var(--transition-smooth);
+}
+
+.why-item-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--emplavi-gold);
+}
+
+.why-badge-num {
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--emplavi-gold);
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.why-item-card h3 {
+  font-size: 17px;
+  margin-bottom: 8px;
+}
+
+.why-item-card p {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--text-body);
+}
+
+/* ==========================================================================
+   BLOG EMPLAVI (EXATAMENTE COMO EMPLAVI.COM.BR/BLOG)
+   ========================================================================== */
+.section-blog-emplavi {
+  padding: 50px 0 60px;
+  background-color: var(--bg-body);
+}
+
+/* Featured Blog Post (Topo) */
+.blog-featured-card {
+  background-color: var(--bg-white);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 30px;
+  transition: var(--transition-smooth);
+}
+
+@media (min-width: 840px) {
+  .blog-featured-card {
+    grid-template-columns: 1.15fr 0.85fr;
+  }
+}
+
+.blog-featured-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.featured-img-wrap {
+  height: 260px;
+  overflow: hidden;
+}
+
+@media (min-width: 840px) {
+  .featured-img-wrap {
+    height: 100%;
+    min-height: 320px;
+  }
+}
+
+.featured-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.blog-featured-card:hover .featured-img-wrap img {
+  transform: scale(1.03);
+}
+
+.featured-body {
+  padding: 30px 26px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.blog-post-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.blog-cat {
+  font-weight: 800;
+  color: var(--emplavi-gold-dark);
+  text-transform: uppercase;
+}
+
+.blog-date {
+  color: var(--text-light);
+}
+
+.featured-title {
+  font-size: clamp(20px, 3.2vw, 26px);
+  font-weight: 800;
+  line-height: 1.25;
+  margin: 4px 0 6px;
+}
+
+.featured-excerpt {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-body);
+  margin-bottom: 20px;
+}
+
+.btn-read-more {
+  align-self: flex-start;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* Blog Items Grid */
+.blog-grid-emplavi {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.blog-card-item {
+  background-color: var(--bg-white);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  transition: var(--transition-smooth);
+}
+
+.blog-card-item:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.blog-card-thumb {
+  height: 180px;
+  overflow: hidden;
+}
+
+.blog-card-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.blog-card-item:hover .blog-card-thumb img {
+  transform: scale(1.04);
+}
+
+.blog-card-details {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.blog-item-title {
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.3;
+  margin: 4px 0 6px;
+}
+
+.blog-item-text {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text-body);
+  margin-bottom: 16px;
+  flex-grow: 1;
+}
+
+.btn-blog-link {
+  background: none;
+  border: none;
+  color: var(--emplavi-navy);
+  font-family: var(--font-main);
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  padding: 0;
+  text-align: left;
+}
+
+.btn-blog-link:hover {
+  color: var(--emplavi-gold-dark);
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   ABOUT LEONARDO SECTION
+   ========================================================================== */
+.section-about-emplavi {
+  padding: 50px 0 60px;
+  background-color: var(--bg-white);
+  border-top: 1px solid var(--border-light);
+}
+
+.about-card-emplavi {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  align-items: center;
+}
+
+@media (min-width: 860px) {
+  .about-card-emplavi {
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 48px;
+  }
+}
+
+.about-photo-col {
+  display: flex;
+  justify-content: center;
+}
+
+.about-img-frame {
+  width: 100%;
+  max-width: 320px;
+  aspect-ratio: 4/5;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 3px solid var(--emplavi-gold);
+  box-shadow: var(--shadow-lg);
+}
+
+.about-img-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.about-title {
+  font-size: clamp(26px, 4vw, 34px);
+  margin-bottom: 2px;
+}
+
+.about-role {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--emplavi-gold-dark);
+}
+
+.about-bio {
+  font-size: 15px;
+  line-height: 1.65;
+  font-style: italic;
+  color: var(--text-body);
+  margin-bottom: 18px;
+}
+
+.about-features-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 26px;
+  font-size: 14px;
+}
+
+.about-features-list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.about-features-list span {
+  color: var(--emplavi-gold-dark);
+  font-weight: 800;
+}
+
+/* ==========================================================================
+   FOOTER (PADRÃO EMPLAVI CORPORATIVO)
+   ========================================================================== */
+.site-footer-emplavi {
+  background-color: var(--emplavi-navy-dark);
+  color: #CBD5E1;
+  padding: 50px 0 24px;
+}
+
+.footer-top-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 36px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-emplavi-logo {
+  height: 48px;
+  width: auto;
+  max-width: 140px;
+  object-fit: contain;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.footer-emplavi-text {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #94A3B8;
+}
+
+.footer-col-nav h4, .footer-col-contact h4 {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--emplavi-gold-light);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 16px;
+}
+
+.footer-col-nav ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-col-nav a {
+  font-size: 13.5px;
+  color: #CBD5E1;
+  transition: color 0.2s;
+}
+
+.footer-col-nav a:hover {
+  color: #FFFFFF;
+}
+
+.footer-wa-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #25D366;
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.footer-wa-link svg {
+  width: 16px;
+  height: 16px;
+}
+
+.footer-addr, .footer-hours {
+  font-size: 12.5px;
+  color: #94A3B8;
+}
+
+.footer-bottom-bar {
+  padding-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+  color: #64748B;
+}
+
+@media (min-width: 768px) {
+  .footer-bottom-bar {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+/* ==========================================================================
+   MOBILE BOTTOM NAVIGATION DOCK (FIXED ON PHONES)
+   ========================================================================== */
+.mobile-dock {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 95;
+  background-color: var(--bg-white);
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: calc(var(--mobile-dock-height) + env(safe-area-inset-bottom, 0px));
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  box-shadow: 0 -4px 16px rgba(30, 47, 71, 0.08);
+}
+
+@media (min-width: 992px) {
+  .mobile-dock {
+    display: none;
+  }
+}
+
+.dock-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  color: var(--text-muted);
+  font-size: 10.5px;
+  font-weight: 700;
+  text-decoration: none;
+  flex: 1;
+  padding: 6px 0;
+  transition: color 0.2s ease;
+}
+
+.dock-item svg {
+  width: 20px;
+  height: 20px;
+}
+
+.dock-item.active {
+  color: var(--emplavi-navy);
+}
+
+.dock-item.active svg {
+  color: var(--emplavi-gold-dark);
+}
+
+.dock-item-wa {
+  color: var(--whatsapp);
+}
+
+.dock-wa-badge {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: var(--whatsapp);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dock-wa-badge svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ==========================================================================
+   FLOATING WHATSAPP BUTTON (DESKTOP)
+   ========================================================================== */
+.floating-wa-container {
+  display: none;
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 90;
+  align-items: center;
+  gap: 10px;
+}
+
+@media (min-width: 992px) {
+  .floating-wa-container {
+    display: flex;
+  }
+}
+
+.floating-tooltip {
+  background-color: var(--emplavi-navy);
+  color: #FFFFFF;
+  padding: 8px 14px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: var(--shadow-md);
+}
+
+.tooltip-status {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #10B981;
+}
+
+.floating-wa-btn {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: var(--whatsapp);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.floating-wa-btn:hover {
+  transform: scale(1.08);
+}
+
+.floating-wa-btn svg {
+  width: 28px;
+  height: 28px;
+}
+
+/* ==========================================================================
+   MODAL / BOTTOM SHEET
+   ========================================================================== */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(30, 47, 71, 0.65);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 200;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+@media (min-width: 768px) {
+  .modal-backdrop {
+    align-items: center;
+    padding: 20px;
+  }
+}
+
+.modal-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-sheet {
+  background-color: var(--bg-white);
+  border-radius: 20px 20px 0 0;
+  width: 100%;
+  max-width: 680px;
+  max-height: 88vh;
+  overflow-y: auto;
+  position: relative;
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.25);
+}
+
+@media (min-width: 768px) {
+  .modal-sheet {
+    border-radius: var(--radius-md);
+    transform: scale(0.95);
+  }
+}
+
+.modal-backdrop.open .modal-sheet {
+  transform: translateY(0);
+}
+
+@media (min-width: 768px) {
+  .modal-backdrop.open .modal-sheet {
+    transform: scale(1);
+  }
+}
+
+.modal-close-btn {
+  position: sticky;
+  top: 14px;
+  right: 14px;
+  float: right;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--bg-soft-gray);
+  border: 1px solid var(--border-light);
+  color: var(--emplavi-navy);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  cursor: pointer;
+  z-index: 10;
+  margin-right: 14px;
+  margin-top: 14px;
+}
+
+.modal-content {
+  padding: 20px 24px 36px;
+  clear: both;
+}
+
+.modal-hero-img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  margin-bottom: 16px;
+}
+
+.modal-header-tag {
+  font-size: 11.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--emplavi-gold-dark);
+}
+
+.modal-prop-title {
+  font-size: 24px;
+  margin: 4px 0 8px;
+}
+
+.modal-prop-sub {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+.modal-specs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+@media (max-width: 480px) {
+  .modal-specs-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.modal-spec-item {
+  background-color: var(--bg-soft-gray);
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  padding: 10px;
+}
+
+.modal-spec-item span {
+  font-size: 11px;
+  color: var(--text-muted);
+  display: block;
+}
+
+.modal-spec-item strong {
+  font-size: 13.5px;
+  color: var(--emplavi-navy);
+  margin-top: 2px;
+  display: block;
+}
+
+.modal-feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 26px;
+}
+
+.modal-feat-point {
+  display: flex;
+  gap: 10px;
+  font-size: 13.5px;
+  color: var(--text-body);
+}
+
+.modal-feat-point span {
+  color: var(--emplavi-gold-dark);
+  font-weight: bold;
+}
