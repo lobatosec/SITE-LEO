@@ -1,6 +1,7 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const { syncEmplaviBlog } = require('./update_blog');
 
 let PORT = parseInt(process.env.PORT || '9001', 10);
 const HOST = '127.0.0.1';
@@ -13,16 +14,39 @@ const MIME_TYPES = {
   '.png': 'image/png',
   '.jpg': 'image/jpeg',
   '.jpeg': 'image/jpeg',
+  '.jfif': 'image/jpeg',
   '.svg': 'image/svg+xml',
   '.webp': 'image/webp',
   '.ico': 'image/x-icon',
   '.json': 'application/json; charset=UTF-8',
   '.woff': 'font/woff',
-  '.woff2': 'font/woff2'
+  '.woff2': 'font/woff2',
+  '.mp4': 'video/mp4'
 };
 
-const server = http.createServer((req, res) => {
+const server = http.createServer(async (req, res) => {
   let safePath = decodeURIComponent(req.url.split('?')[0]);
+
+  if (safePath === '/api/blog-posts') {
+    try {
+      const data = await syncEmplaviBlog();
+      res.writeHead(200, {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Access-Control-Allow-Origin': '*',
+        'Cache-Control': 'no-cache'
+      });
+      return res.end(JSON.stringify(data));
+    } catch (err) {
+      const fallbackPath = path.join(BASE_DIR, 'blog-posts.json');
+      if (fs.existsSync(fallbackPath)) {
+        res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8' });
+        return res.end(fs.readFileSync(fallbackPath, 'utf8'));
+      }
+      res.writeHead(500, { 'Content-Type': 'application/json; charset=UTF-8' });
+      return res.end(JSON.stringify({ error: err.message }));
+    }
+  }
+
   if (safePath === '/' || safePath === '') {
     safePath = '/index.html';
   }
